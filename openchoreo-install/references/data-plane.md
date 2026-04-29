@@ -19,7 +19,7 @@ kubectl get secret cluster-gateway-ca -n openchoreo-control-plane \
 
 ```bash
 helm upgrade --install openchoreo-data-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-data-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-data-plane \
   --create-namespace \
   --set gateway.tls.enabled=false
@@ -85,7 +85,7 @@ kubectl wait --for=condition=Ready certificate/dp-gateway-tls \
 
 ```bash
 helm upgrade openchoreo-data-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-data-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-data-plane \
   --reuse-values \
   --values - <<EOF

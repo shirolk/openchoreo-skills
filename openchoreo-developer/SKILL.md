@@ -120,7 +120,8 @@ Keep these because they are durable and routinely useful:
 - **For third-party/public apps: default to pre-built images (BYO), not source builds.** Source builds commonly fail because third-party Dockerfiles use multi-platform syntax (`ARG BUILDPLATFORM`) that OpenChoreo's buildah builder does not support. If a build exits 125 with a `BUILDPLATFORM` error, switch to BYO immediately
 - **Before deploying any third-party app: fetch the official Kubernetes or Helm manifests** and extract every required env var per service — connections inject service addresses but do not provide `PORT`, feature flags, or vendor SDK disable flags
 - **`create_component` without `workflow` for BYO image deployments** — adding a workflow to a BYO component causes unnecessary failed builds
-- **`dependencies` in workload spec is always an array, not a map** — each entry must include a `name` field (field renamed from `connections` in v1.0.0-rc.1)
+- **`dependencies` in workload spec is always an array, not a map** — each entry must include a `name` field (field renamed from `connections` in v1.0.0)
+- **Endpoint type `REST` is removed** — use `HTTP` instead in both Workload CR and `workload.yaml`
 - **Cloud-native apps often bundle vendor SDKs** (profilers, tracers, exporters) that crash outside their target cloud. If a service crash-loops before logging "listening on port X", look for a native module load error and apply the relevant disable flag from the official manifests
 
 ## Escalation rule

@@ -79,7 +79,7 @@ kubectl wait -n openchoreo-observability-plane \
 
 ```bash
 helm upgrade --install openchoreo-observability-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-observability-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-observability-plane \
   --create-namespace \
   --timeout 25m \
@@ -171,7 +171,7 @@ kubectl wait --for=condition=Ready certificate/obs-gateway-tls \
 
 ```bash
 helm upgrade openchoreo-observability-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-observability-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-observability-plane \
   --reuse-values \
   --timeout 10m \

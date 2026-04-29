@@ -46,7 +46,7 @@ kubectl wait --for=condition=Ready certificate/openchoreo-ca \
 
 ```bash
 helm upgrade --install openchoreo-control-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-control-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-control-plane \
   --create-namespace \
   --values - <<'EOF'
@@ -123,7 +123,7 @@ kubectl wait --for=condition=Ready certificate/cp-gateway-tls \
 ## Step 5 — Install Thunder (identity provider, v0.26.0)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0-rc.1/install/k3d/common/values-thunder.yaml \
+curl -fsSL https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0/install/k3d/common/values-thunder.yaml \
 | sed "s#http://thunder.openchoreo.localhost:8080#https://thunder.${CP_BASE_DOMAIN}#g" \
 | sed "s#thunder.openchoreo.localhost#thunder.${CP_BASE_DOMAIN}#g" \
 | sed "s#http://openchoreo.localhost:8080#https://console.${CP_BASE_DOMAIN}#g" \
@@ -180,7 +180,7 @@ EOF
 
 ```bash
 helm upgrade openchoreo-control-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-control-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-control-plane \
   --reuse-values \
   --values - <<EOF
@@ -258,7 +258,7 @@ Console URL: `https://console.${CP_BASE_DOMAIN}`
 ## Step 9 — Install default resources
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0-rc.1/samples/getting-started/all.yaml
+kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0/samples/getting-started/all.yaml
 
 kubectl label namespace default openchoreo.dev/control-plane=true
 ```

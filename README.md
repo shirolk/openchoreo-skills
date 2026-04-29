@@ -1,7 +1,7 @@
 # OpenChoreo Skills
 
-> **Supported OpenChoreo version: v1.0.0-rc.1**
-> The skills, reference files, and MCP tool mappings in this repository are verified against OpenChoreo **v1.0.0-rc.1**. Behaviour may differ on earlier or later versions.
+> **Supported OpenChoreo version: v1.0.0**
+> The skills, reference files, and MCP tool mappings in this repository are verified against OpenChoreo **v1.0.0**. Behaviour may differ on earlier or later versions.
 
 This repository contains **OpenChoreo Skills** — structured guides and reference documentation that AI agents (such as Claude Code) and automation tools use to operate on the OpenChoreo internal developer platform.
 

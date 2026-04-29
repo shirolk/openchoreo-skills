@@ -149,7 +149,7 @@ spec:
 EOF
 ```
 
-`deploymentPipelineRef` is now an object with `kind` and `name` fields (changed in v1.0.0-rc.1).
+`deploymentPipelineRef` must be an object with `kind` and `name` fields (plain string form removed in v1.0.0).
 
 ### Optional: Register WorkflowPlane and ObservabilityPlane
 
@@ -343,7 +343,7 @@ helm upgrade openchoreo-data-plane \
   --namespace openchoreo-data-plane \
   --reuse-values
 
-# Workflow Plane (if installed; chart renamed from openchoreo-build-plane in v1.0.0-rc.1)
+# Workflow Plane (if installed; chart name: openchoreo-workflow-plane)
 helm upgrade openchoreo-workflow-plane \
   oci://ghcr.io/openchoreo/helm-charts/openchoreo-workflow-plane \
   --version <version> \
@@ -380,6 +380,6 @@ helm rollback openchoreo-control-plane -n openchoreo-control-plane
 
 | OpenChoreo | Kubernetes | Helm |
 |-----------|-----------|------|
-| 1.0.0-rc.1 | 1.32+ | 3.12+ |
+| 1.0.0 | 1.32+ | 3.12+ |
 | 0.7.x | 1.32+ | 3.12+ |
 | 0.6.x | 1.31+ | 3.12+ |

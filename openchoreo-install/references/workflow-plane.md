@@ -21,7 +21,7 @@ kubectl get secret cluster-gateway-ca -n openchoreo-control-plane \
 
 ```bash
 helm upgrade --install openchoreo-workflow-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-workflow-plane \
-  --version 1.0.0-rc.1 \
+  --version 1.0.0 \
   --namespace openchoreo-workflow-plane \
   --create-namespace \
   --set clusterAgent.tls.generateCerts=true

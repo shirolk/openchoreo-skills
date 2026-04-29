@@ -8,19 +8,19 @@ The `occ` CLI manages OpenChoreo resources.
 
 ```bash
 # macOS Apple Silicon (ARM64)
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_darwin_arm64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_darwin_arm64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # macOS Intel (AMD64)
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_darwin_amd64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_darwin_amd64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # Linux x64
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_linux_amd64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_linux_amd64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # Linux ARM64
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_linux_arm64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_linux_arm64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 ```
 
@@ -214,7 +214,7 @@ occ workload list                    # What workloads exist?
 - Wrong: `occ component get my-app --project default`
 - Right: `occ component get my-app` (with project set in context or globally)
 
-**deploymentPipelineRef is now an object**: In Project YAML, use `deploymentPipelineRef: {kind: DeploymentPipeline, name: default}`, not the plain string form `deploymentPipelineRef: default` (changed in v1.0.0-rc.1).
+**deploymentPipelineRef must be an object**: In Project YAML, use `deploymentPipelineRef: {kind: DeploymentPipeline, name: default}`, not the plain string form `deploymentPipelineRef: default` (plain string removed in v1.0.0).
 
 **Docker workflow paths are repo-relative**: `repository.appPath` selects the source subdirectory and `workload.yaml`, but `docker.context` and `docker.filePath` must still point at real repo-root-relative paths. If `appPath` is `./backend`, a Dockerfile under `backend/` should use `docker.context: ./backend` and `docker.filePath: ./backend/Dockerfile`.
 

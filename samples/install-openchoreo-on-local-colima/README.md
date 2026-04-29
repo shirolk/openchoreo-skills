@@ -98,7 +98,7 @@ In sequence (each verified before the next):
 ### Step 3 — Install control plane
 1. Thunder identity provider (v0.26.0, using official k3d values — already set to `openchoreo.localhost`)
 2. Backstage `ExternalSecret`
-3. `openchoreo-control-plane` Helm chart (v1.0.0-rc.1, k3d single-cluster values)
+3. `openchoreo-control-plane` Helm chart (v1.0.0, k3d single-cluster values)
 4. Patches `NODE_ENV=development` (chart default is `production`; auth config only has `development:` key)
 5. Patches CoreDNS to resolve `openchoreo.localhost`, `api.openchoreo.localhost`, `thunder.openchoreo.localhost` → CP gateway ClusterIP
 
@@ -111,19 +111,19 @@ Creates: default Project, DeploymentPipeline, Environments (dev/staging/prod), C
 
 ### Step 5 — Install data plane
 1. Copies `cluster-gateway-ca` cert to `openchoreo-data-plane` namespace
-2. `openchoreo-data-plane` Helm chart (v1.0.0-rc.1, k3d values — port 19080)
+2. `openchoreo-data-plane` Helm chart (v1.0.0, k3d values — port 19080)
 3. Registers `ClusterDataPlane` with `openchoreoapis.openchoreo.localhost` host
 4. Updates CoreDNS to also resolve `openchoreoapis.openchoreo.localhost` → DP gateway ClusterIP
 
 ### Step 6 — Install workflow plane
 1. Copies `cluster-gateway-ca` cert to `openchoreo-workflow-plane` namespace
-2. `openchoreo-workflow-plane` Helm chart (v1.0.0-rc.1, k3d values)
+2. `openchoreo-workflow-plane` Helm chart (v1.0.0, k3d values)
 3. Applies Argo Workflow templates (checkout-source, buildpacks, dockerfile-builder, publish-image)
 4. Registers `ClusterWorkflowPlane`
 
 ### Step 7 — Install observability plane
 1. Creates namespace, copies CA, creates ExternalSecrets for OpenSearch credentials
-2. `openchoreo-observability-plane` Helm chart (v1.0.0-rc.1) on port 9080 (TLS disabled)
+2. `openchoreo-observability-plane` Helm chart (v1.0.0) on port 9080 (TLS disabled)
 3. Installs modules in parallel: `observability-logs-opensearch`, `observability-metrics-prometheus`, `observability-traces-opensearch`
 4. Reconfigures observer with `observer.openchoreo.localhost` hostname and internal Thunder URLs
 5. Adds `observer.openchoreo.localhost` → obs gateway ClusterIP to CoreDNS
@@ -136,7 +136,7 @@ Creates: default Project, DeploymentPipeline, Environments (dev/staging/prod), C
 ## Results from the last run
 
 **Date:** 2026-03-20
-**OpenChoreo version:** v1.0.0-rc.1
+**OpenChoreo version:** v1.0.0
 **Colima version:** 0.8.x
 **k3s version:** v1.33.4+k3s1
 **macOS:** Apple Silicon (M-series), macOS 25.3.0

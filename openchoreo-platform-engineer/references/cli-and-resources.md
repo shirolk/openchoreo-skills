@@ -17,19 +17,19 @@
 
 ```bash
 # macOS Apple Silicon (ARM64)
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_darwin_arm64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_darwin_arm64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # macOS Intel (AMD64)
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_darwin_amd64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_darwin_amd64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # Linux x64
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_linux_amd64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_linux_amd64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 # Linux ARM64
-curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0-rc.1/occ_v1.0.0-rc.1_linux_arm64.tar.gz \
+curl -L https://github.com/openchoreo/openchoreo/releases/download/v1.0.0/occ_v1.0.0_linux_arm64.tar.gz \
   | tar -xz && sudo mv occ /usr/local/bin/
 
 occ version   # verify

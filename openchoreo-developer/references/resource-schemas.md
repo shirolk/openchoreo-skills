@@ -18,7 +18,7 @@ spec:
     name: default
 ```
 
-**Important**: `deploymentPipelineRef` is an object with `kind` and `name` fields (changed in v1.0.0-rc.1 — previously a plain string).
+**Important**: `deploymentPipelineRef` must be an object with `kind` and `name` fields — plain string form removed in v1.0.0.
 
 ## Component
 
@@ -106,7 +106,7 @@ spec:
             key: cert
   endpoints:
     api:
-      type: REST
+      type: HTTP
       port: 8080
       targetPort: 8080
       visibility: ["external"]
@@ -149,7 +149,7 @@ metadata:
 endpoints:
   - name: api
     port: 8080
-    type: REST
+    type: HTTP
     targetPort: 8080
     displayName: "REST API"
     basePath: "/api/v1"

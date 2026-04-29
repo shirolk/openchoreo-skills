@@ -391,7 +391,7 @@ Fall back to `kubectl` only if the REST API does not expose the resource.
 
 **DataPlane/WorkflowPlane/ObservabilityPlane CRUD is not exposed via MCP or REST API**: Use `occ apply -f <file>` if occ is available, otherwise `kubectl apply`. Helm values control plane registration at install time.
 
-**`deploymentPipelineRef` is now an object**: In Project YAML, use `deploymentPipelineRef: {kind: DeploymentPipeline, name: default}`, not the plain string form (changed in v1.0.0-rc.1).
+**`deploymentPipelineRef` must be an object**: In Project YAML, use `deploymentPipelineRef: {kind: DeploymentPipeline, name: default}`, not the plain string form (plain string removed in v1.0.0).
 
 **Namespace-scoped vs cluster-scoped**: `DataPlane`/`WorkflowPlane`/`ObservabilityPlane` come in both namespace-scoped and cluster-scoped (`ClusterDataPlane`, etc.) variants. Use cluster-scoped for shared infrastructure; namespace-scoped for tenant isolation.
 

@@ -166,7 +166,7 @@ Key configuration by PE:
 Multiple DataPlane CRs can share the same `planeID` for multi-tenancy.
 
 ### WorkflowPlane (formerly Build Plane)
-Kubernetes cluster for CI/CD execution (Argo Workflows). The CRD was renamed from `BuildPlane` to `WorkflowPlane` in v1.0.0-rc.1.
+Kubernetes cluster for CI/CD execution (Argo Workflows). CRD is `WorkflowPlane` (formerly `BuildPlane`).
 
 Key configuration:
 - `planeID` - must match cluster agent helm value
@@ -174,7 +174,7 @@ Key configuration:
 - `secretStoreRef` - for build secrets (registry creds, repo access)
 
 ### Observability Plane
-Centralized logging via Fluentbit. The RCA agent report backend uses SQLite by default (switched from OpenSearch in v1.0.0-rc.1). Enables `occ component logs`.
+Centralized logging via Fluentbit. The RCA agent report backend uses SQLite by default. Enables `occ component logs`.
 
 ## Gateway Configuration
 

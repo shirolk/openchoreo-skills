@@ -99,9 +99,9 @@ A deployment target (dev, staging, prod). Maps to a DataPlane (Kubernetes cluste
 ### DeploymentPipeline
 Defines promotion paths between environments. A pipeline might be: development -> staging -> production.
 
-**Important**: `deploymentPipelineRef` in Project spec is now an object with `kind` and `name` fields (changed in v1.0.0-rc.1 — previously a plain string).
+**Important**: `deploymentPipelineRef` in Project spec must be an object with `kind` and `name` fields — plain string form removed in v1.0.0.
 ```yaml
-# Correct (v1.0.0-rc.1+)
+# Correct
 deploymentPipelineRef:
   kind: DeploymentPipeline
   name: default
@@ -116,7 +116,7 @@ Immutable snapshot of Component + Workload + ComponentType + Traits at a point i
 ### ReleaseBinding
 Binds a ComponentRelease to an Environment. This is what triggers actual deployment. Supports environment-specific overrides:
 - `componentTypeEnvOverrides`: Replicas, resource limits, etc.
-- `traitEnvironmentConfigs`: Per-environment trait values keyed by trait instanceName (renamed from `traitOverrides` in v1.0.0-rc.1)
+- `traitEnvironmentConfigs`: Per-environment trait values keyed by trait instanceName (renamed from `traitOverrides` in v1.0.0)
 - `workloadOverrides`: Extra env vars, files for specific environments
 - `state`: `Active` (running) or `Undeploy` (removed)
 

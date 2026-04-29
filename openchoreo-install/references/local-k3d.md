@@ -53,7 +53,7 @@ This creates a cluster named `openchoreo` with pre-mapped ports:
 
 Run all prerequisites in one shot:
 ```bash
-curl -fsSL https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0-rc.1/install/k3d/single-cluster/install-prerequisites.sh | bash
+curl -fsSL https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0/install/k3d/single-cluster/install-prerequisites.sh | bash
 ```
 
 Or manually (same result):
@@ -125,7 +125,7 @@ kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/main/in
 # Thunder (identity provider)
 helm upgrade --install thunder oci://ghcr.io/asgardeo/helm-charts/thunder \
   --namespace thunder --create-namespace --version 0.26.0 \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0-rc.1/install/k3d/common/values-thunder.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0/install/k3d/common/values-thunder.yaml
 
 kubectl wait -n thunder --for=condition=available --timeout=300s deployment -l app.kubernetes.io/name=thunder
 
@@ -160,7 +160,7 @@ EOF
 
 # Control plane
 helm upgrade --install openchoreo-control-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-control-plane \
-  --version 1.0.0-rc.1 --namespace openchoreo-control-plane --create-namespace \
+  --version 1.0.0 --namespace openchoreo-control-plane --create-namespace \
   --values https://raw.githubusercontent.com/openchoreo/openchoreo/main/install/k3d/single-cluster/values-cp.yaml
 
 kubectl wait -n openchoreo-control-plane --for=condition=available --timeout=300s deployment --all
@@ -173,7 +173,7 @@ Thunder admin: http://thunder.openchoreo.localhost:8080/develop — `admin` / `a
 ## Step 4 — Install default resources
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0-rc.1/samples/getting-started/all.yaml
+kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/refs/tags/v1.0.0/samples/getting-started/all.yaml
 kubectl label namespace default openchoreo.dev/control-plane=true
 ```
 
@@ -192,7 +192,7 @@ kubectl create configmap cluster-gateway-ca \
   -n openchoreo-data-plane --dry-run=client -o yaml | kubectl apply -f -
 
 helm upgrade --install openchoreo-data-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-data-plane \
-  --version 1.0.0-rc.1 --namespace openchoreo-data-plane --create-namespace \
+  --version 1.0.0 --namespace openchoreo-data-plane --create-namespace \
   --values https://raw.githubusercontent.com/openchoreo/openchoreo/main/install/k3d/single-cluster/values-dp.yaml
 
 AGENT_CA=$(kubectl get secret cluster-agent-tls \
@@ -244,7 +244,7 @@ helm install registry twuni/docker-registry \
 
 # Workflow plane
 helm upgrade --install openchoreo-workflow-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-workflow-plane \
-  --version 1.0.0-rc.1 --namespace openchoreo-workflow-plane \
+  --version 1.0.0 --namespace openchoreo-workflow-plane \
   --values https://raw.githubusercontent.com/openchoreo/openchoreo/main/install/k3d/single-cluster/values-wp.yaml
 
 # Workflow templates (use publish-image-k3d.yaml — pushes to local registry, not ttl.sh)
@@ -345,7 +345,7 @@ docker exec k3d-openchoreo-server-0 sh -c \
 
 # Core observability plane
 helm upgrade --install openchoreo-observability-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-observability-plane \
-  --version 1.0.0-rc.1 --namespace openchoreo-observability-plane \
+  --version 1.0.0 --namespace openchoreo-observability-plane \
   --values https://raw.githubusercontent.com/openchoreo/openchoreo/main/install/k3d/single-cluster/values-op.yaml \
   --timeout 25m
 

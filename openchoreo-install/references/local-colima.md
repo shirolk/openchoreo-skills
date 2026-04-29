@@ -72,7 +72,7 @@ helm upgrade --install kgateway oci://cr.kgateway.dev/kgateway-dev/charts/kgatew
 # OpenBao — use the official k3d values file (sets up dev mode + seeds all required secrets)
 helm upgrade --install openbao oci://ghcr.io/openbao/charts/openbao \
   --namespace openbao --create-namespace --version 0.25.6 \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/common/values-openbao.yaml \
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/common/values-openbao.yaml \
   --wait --timeout 300s
 ```
 
@@ -161,7 +161,7 @@ Uses the official k3d single-cluster values files directly — they already use 
 # Install Thunder (identity provider)
 helm upgrade --install thunder oci://ghcr.io/asgardeo/helm-charts/thunder \
   --namespace thunder --create-namespace --version 0.28.0 \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/common/values-thunder.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/common/values-thunder.yaml
 
 kubectl wait -n thunder --for=condition=available --timeout=300s deployment -l app.kubernetes.io/name=thunder
 
@@ -201,11 +201,11 @@ kubectl wait -n openchoreo-control-plane \
 
 # Control plane
 helm upgrade --install openchoreo-control-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-control-plane \
-  --version 1.0.0-rc.2 \
+  --version 1.0.0 \
   --namespace openchoreo-control-plane \
   --create-namespace \
   --timeout 15m \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/single-cluster/values-cp.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/single-cluster/values-cp.yaml
 
 kubectl wait -n openchoreo-control-plane --for=condition=available --timeout=300s deployment --all
 ```
@@ -259,7 +259,7 @@ Thunder admin: **`http://thunder.openchoreo.localhost:8080/develop`** — `admin
 ## Step 4 — Apply default resources
 
 ```bash
-kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/samples/getting-started/all.yaml
+kubectl apply -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/samples/getting-started/all.yaml
 kubectl label namespace default openchoreo.dev/control-plane=true
 ```
 
@@ -277,11 +277,11 @@ kubectl get secret cluster-gateway-ca -n openchoreo-control-plane \
 
 # k3d values-dp.yaml uses httpPort:19080 — no port conflict with CP gateway on single-node k3s
 helm upgrade --install openchoreo-data-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-data-plane \
-  --version 1.0.0-rc.2 \
+  --version 1.0.0 \
   --namespace openchoreo-data-plane \
   --create-namespace \
   --timeout 15m \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/single-cluster/values-dp.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/single-cluster/values-dp.yaml
 
 kubectl wait -n openchoreo-data-plane --for=condition=available --timeout=300s deployment --all
 
@@ -350,19 +350,19 @@ kubectl get secret cluster-gateway-ca -n openchoreo-control-plane \
 helm repo add twuni https://twuni.github.io/docker-registry.helm && helm repo update
 helm install registry twuni/docker-registry \
   --namespace openchoreo-workflow-plane --create-namespace \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/single-cluster/values-registry.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/single-cluster/values-registry.yaml
 
 helm upgrade --install openchoreo-workflow-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-workflow-plane \
-  --version 1.0.0-rc.2 \
+  --version 1.0.0 \
   --namespace openchoreo-workflow-plane \
-  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/install/k3d/single-cluster/values-wp.yaml
+  --values https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/install/k3d/single-cluster/values-wp.yaml
 
 # Workflow templates
 kubectl apply \
-  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/samples/getting-started/workflow-templates/checkout-source.yaml \
-  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/samples/getting-started/workflow-templates.yaml \
-  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/samples/getting-started/workflow-templates/publish-image-k3d.yaml \
-  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0-rc.2/samples/getting-started/workflow-templates/generate-workload-k3d.yaml
+  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/samples/getting-started/workflow-templates/checkout-source.yaml \
+  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/samples/getting-started/workflow-templates.yaml \
+  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/samples/getting-started/workflow-templates/publish-image-k3d.yaml \
+  -f https://raw.githubusercontent.com/openchoreo/openchoreo/release-v1.0.0/samples/getting-started/workflow-templates/generate-workload-k3d.yaml
 
 kubectl wait -n openchoreo-workflow-plane --for=condition=available --timeout=300s deployment --all
 
@@ -455,7 +455,7 @@ kubectl wait -n openchoreo-observability-plane \
 
 # Install core — port 11080 avoids conflicts with CP (8080) and DP (19080)
 helm upgrade --install openchoreo-observability-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-observability-plane \
-  --version 1.0.0-rc.2 \
+  --version 1.0.0 \
   --namespace openchoreo-observability-plane \
   --timeout 25m \
   --values - <<'EOF'
@@ -492,7 +492,7 @@ Configure with localhost hostname and reconfigure:
 
 ```bash
 helm upgrade openchoreo-observability-plane oci://ghcr.io/openchoreo/helm-charts/openchoreo-observability-plane \
-  --version 1.0.0-rc.2 \
+  --version 1.0.0 \
   --namespace openchoreo-observability-plane \
   --reuse-values --timeout 10m \
   --values - <<'EOF'
