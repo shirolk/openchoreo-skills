@@ -1,7 +1,7 @@
 ---
 name: openchoreo-install
 description: |
-  Use this whenever the task is about installing or setting up OpenChoreo on a Kubernetes cluster: installing prerequisites, configuring planes (control, data, workflow, observability), troubleshooting installation failures, or tearing down an installation. Pairs with `openchoreo-platform-engineer` for post-install platform configuration.
+  Use this whenever the task is about installing, setting up, or checking the health of an OpenChoreo installation on a Kubernetes cluster: installing prerequisites, configuring planes (control, data, workflow, observability), checking if an existing install is healthy, troubleshooting installation failures, or tearing down an installation. Pairs with `openchoreo-platform-engineer` for post-install platform configuration.
 ---
 
 # OpenChoreo Install Guide
@@ -15,6 +15,7 @@ Use this skill for:
 - Installing OpenChoreo from scratch on any Kubernetes cluster (EKS, GKE, AKS, DOKS, k3s, or self-managed)
 - Installing and configuring prerequisites (cert-manager, external-secrets, kgateway, OpenBao)
 - Registering planes (DataPlane, WorkflowPlane, ObservabilityPlane)
+- **Checking the health of an existing installation** — pod status, plane registration, Helm releases
 - Diagnosing installation failures (CRDs, TLS, LoadBalancer, identity)
 - Uninstalling / cleaning up an installation
 
@@ -61,6 +62,42 @@ Read only what the task needs:
 - **`-k` on all curl health checks** — TLS is self-signed; curl will fail without it
 - **Workflow images use ttl.sh** — images expire after 24 hours; point to a real registry for production
 - **Thunder changes need PVC deletion + reinstall** — don't patch Thunder in place if OIDC config is wrong; delete the PVC and reinstall
+
+## Health check — existing installation
+
+When the user asks whether their installation is healthy, run these checks in parallel:
+
+```bash
+# Pod status across all planes
+kubectl get pods -n openchoreo-control-plane
+kubectl get pods -n openchoreo-data-plane
+kubectl get pods -n openchoreo-workflow-plane      # if installed
+kubectl get pods -n openchoreo-observability-plane # if installed
+
+# Helm release status
+helm list -n openchoreo-control-plane
+helm list -n openchoreo-data-plane
+helm list -n openchoreo-workflow-plane
+helm list -n openchoreo-observability-plane
+
+# Plane registration
+kubectl get clusterdataplane -A
+kubectl get clusterworkflowplane -A
+kubectl get clusterobservabilityplane -A
+```
+
+**What to look for:**
+
+| Signal | Healthy | Needs attention |
+|--------|---------|-----------------|
+| Pod status | `Running` or `Completed` | `CrashLoopBackOff`, `Pending`, `Error` |
+| Helm release | `deployed` | `failed`, `pending-*` |
+| Plane CRs | `Ready: True` in status | `Ready: False` or missing |
+| Restarts | Low count, long ago | Rapid or recent restarts |
+
+For any pod not `Running`, check logs: `kubectl logs -n <namespace> <pod> --tail=50`
+
+For plane connectivity issues, check the cluster-agent logs in the affected plane namespace.
 
 ## Anti-patterns
 
